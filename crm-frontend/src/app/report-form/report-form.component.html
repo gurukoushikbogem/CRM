@@ -1,0 +1,52 @@
+<div class="max-w-xl mx-auto p-6 bg-white shadow-md rounded-lg">
+    <h2 class="text-2xl font-bold mb-4">Generate Report</h2>
+    <form (ngSubmit)="onSubmit()" #reportForm="ngForm" novalidate>
+        <!-- Type -->
+        <div class="mb-4">
+            <label for="type" class="block text-sm font-medium text-gray-700">Type</label>
+            <select id="type" name="type" [(ngModel)]="report.type"
+                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
+                <option value="">Select Type</option>
+                <option *ngFor="let type of reportTypes" [value]="type">{{ type }}</option>
+            </select>
+            <div *ngIf="reportForm.submitted && !report.type" class="text-red-500 text-sm">
+                Type is required.
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label for="startDate" class="block text-sm font-medium text-gray-700">Start Date</label>
+            <input type="datetime-local" id="startDate" name="startDate" [(ngModel)]="report.startDate"
+                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required />
+            <div *ngIf="reportForm.submitted && !report.startDate" class="text-red-500 text-sm">
+                Start Date is required.
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label for="endDate" class="block text-sm font-medium text-gray-700">End Date</label>
+            <input type="datetime-local" id="endDate" name="endDate" [(ngModel)]="report.endDate"
+                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required />
+            <div *ngIf="reportForm.submitted && !report.endDate" class="text-red-500 text-sm">
+                End Date is required.
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label for="format" class="block text-sm font-medium text-gray-700">Format</label>
+            <select id="format" name="format" [(ngModel)]="report.format"
+                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
+                <option value="">Select Format</option>
+                <option *ngFor="let format of reportFormats" [value]="format">{{ format }}</option>
+            </select>
+            <div *ngIf="reportForm.submitted && !report.format" class="text-red-500 text-sm">
+                Format is required.
+            </div>
+        </div>
+
+        <button type="submit" [disabled]="reportForm.invalid"
+            class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md">
+            Generate Report
+        </button>
+    </form>
+</div>

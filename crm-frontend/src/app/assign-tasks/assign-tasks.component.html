@@ -1,0 +1,37 @@
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Unassigned Leads</h1>
+    <table class="w-full border-collapse border border-gray-200">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border border-gray-300 p-2 text-left">Lead Name</th>
+                <th class="border border-gray-300 p-2 text-left">Lead Source</th>
+                <th class="border border-gray-300 p-2 text-left">Contact Details</th>
+                <th class="border border-gray-300 p-2 text-left">Potential Value</th>
+                <th class="border border-gray-300 p-2 text-left">Assign To</th>
+                <th class="border border-gray-300 p-2 text-left">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let lead of unassignedLeads" class="hover:bg-gray-50">
+                <td class="border border-gray-300 p-2">{{ lead.name }}</td>
+                <td class="border border-gray-300 p-2">{{ lead.leadSource }}</td>
+                <td class="border border-gray-300 p-2">{{ lead.contactDetails }}</td>
+                <td class="border border-gray-300 p-2">{{ lead.potentialValue }}</td>
+                <td class="border border-gray-300 p-2">
+                    <select [(ngModel)]="lead.assignedTo" class="w-full p-2 border border-gray-300 rounded">
+                        <option value="" disabled>Select a sales representative</option>
+                        <option *ngFor="let rep of salesRepresentatives" [value]="rep.userId">
+                            {{ rep.username }}
+                        </option>
+                    </select>
+                </td>
+                <td class="border border-gray-300 p-2">
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                        (click)="assignLead(lead)">
+                        Assign Lead
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

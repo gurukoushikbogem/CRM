@@ -1,0 +1,90 @@
+<div class="max-w-7xl mx-auto p-6 bg-gray-100 rounded-lg shadow-md">
+    <h2 class="text-3xl font-bold mb-6 text-center">Customer Management</h2>
+
+    <div class="mb-6 flex items-center justify-between">
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name or industry..."
+            class="w-full p-2 border border-gray-300 rounded-md" />
+        <button (click)="searchCustomer()"
+            class="ml-4 px-4 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600">
+            Search
+        </button>
+    </div>
+
+    <div class="mb-4 flex justify-end">
+        <button (click)="toggleAddCustomerForm()"
+            class="px-4 py-2 bg-green-500 text-white font-medium rounded-md hover:bg-green-600">
+            {{ showAddCustomerForm ? 'Close Form' : 'Add Customer' }}
+        </button>
+    </div>
+
+    <div *ngIf="showAddCustomerForm" class="mb-6 bg-white p-4 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold mb-4">Add Customer</h3>
+        <form (ngSubmit)="addCustomer()" #addCustomerForm="ngForm" class="space-y-4">
+            <div>
+                <label for="name" class="block text-sm font-medium">Name</label>
+                <input type="text" id="name" [(ngModel)]="newCustomer.name" name="name"
+                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required />
+            </div>
+            <div>
+                <label for="company" class="block text-sm font-medium">Company</label>
+                <input type="text" id="company" [(ngModel)]="newCustomer.company" name="company"
+                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+            </div>
+            <div>
+                <label for="industry" class="block text-sm font-medium">Industry</label>
+                <input type="text" id="industry" [(ngModel)]="newCustomer.industry" name="industry"
+                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+            </div>
+            <div>
+                <label for="contactDetails" class="block text-sm font-medium">Contact Details</label>
+                <input type="text" id="contactDetails" [(ngModel)]="newCustomer.contactDetails" name="contactDetails"
+                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+            </div>
+            <button type="submit"
+                class="w-full bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600">
+                Add Customer
+            </button>
+        </form>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-4">
+        <h3 class="text-xl font-semibold mb-4">Customer List</h3>
+        <div *ngIf="customers.length === 0" class="text-gray-500 text-center">
+            No customers found.
+        </div>
+        <div *ngFor="let customer of customers" class="border-b last:border-b-0 py-4">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h4 class="text-lg font-medium">{{ customer.name }}</h4>
+                    <p class="text-sm text-gray-500">Industry: {{ customer.industry }}</p>
+                </div>
+                <div class="flex space-x-2">
+                    <button (click)="viewCustomer(customer.customerId)"
+                        class="px-3 py-1 bg-blue-500 text-white text-sm rounded-md hover:bg-blue-600">
+                        View
+                    </button>
+                    <button (click)="deleteCustomer(customer.customerId)"
+                        class="px-3 py-1 bg-red-500 text-white text-sm rounded-md hover:bg-red-600">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="selectedCustomer" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+            <h3 class="text-xl font-semibold mb-4">Customer Details</h3>
+            <p><strong>Name:</strong> {{ selectedCustomer.name }}</p>
+            <p><strong>Company:</strong> {{ selectedCustomer.company }}</p>
+            <p><strong>Industry:</strong> {{ selectedCustomer.industry }}</p>
+            <p><strong>Contact Details:</strong> {{ selectedCustomer.contactDetails }}</p>
+            <p><strong>Account Status:</strong> {{ selectedCustomer.accountStatus }}</p>
+            <button (click)="closeCustomerDetails()"
+                class="mt-4 w-full bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600">
+                Close
+            </button>
+        </div>
+    </div>
+
+</div>

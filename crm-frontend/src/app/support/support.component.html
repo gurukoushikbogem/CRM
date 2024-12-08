@@ -1,0 +1,35 @@
+<div class="max-w-xl mx-auto p-6 bg-white shadow-md rounded-lg">
+    <h2 class="text-2xl font-bold mb-4 text-gray-800">Submit a Support Ticket</h2>
+    <form (ngSubmit)="onSubmit()" #supportForm="ngForm" novalidate>
+        
+
+        <div class="mb-4">
+            <label for="issueDescription" class="block text-sm font-medium text-gray-700">Issue Description</label>
+            <textarea id="issueDescription" name="issueDescription" [(ngModel)]="ticket.issueDescription"
+                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="4" required></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label for="priority" class="block text-sm font-medium text-gray-700">Priority</label>
+            <select id="priority" name="priority" [(ngModel)]="ticket.priority"
+                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
+                <option value="Low">Low</option>
+                <option value="Normal">Normal</option>
+                <option value="High">High</option>
+                <option value="Critical">Critical</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="notes" class="block text-sm font-medium text-gray-700">Additional Notes</label>
+            <textarea id="notes" name="notes" [(ngModel)]="ticket.notes"
+                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" rows="2"></textarea>
+        </div>
+
+        <button type="submit" [disabled]="supportForm.invalid"
+            class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md">
+            Submit Ticket
+        </button>
+
+    </form>
+</div>

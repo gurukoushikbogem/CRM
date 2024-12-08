@@ -1,0 +1,26 @@
+<div class="p-6 bg-gray-100 min-h-screen">
+    <h2 class="text-2xl font-bold text-blue-700 mb-4">Campaigns</h2>
+    <div *ngFor="let campaign of campaigns" class="bg-white rounded-lg shadow mb-4 p-4">
+        <div class="flex justify-between items-center border-b pb-2 mb-2">
+            <h3 class="text-lg font-semibold">{{ campaign.name }}</h3>
+            <span class="text-sm px-2 py-1 rounded-full" [ngClass]="{
+          'bg-blue-200 text-blue-800': campaign.status === 'Planned',
+          'bg-green-200 text-green-800': campaign.status === 'Active',
+          'bg-gray-200 text-gray-800': campaign.status === 'Completed'
+        }">
+                {{ campaign.status }}
+            </span>
+        </div>
+        <p class="text-sm mb-1">Start Date: {{ campaign.startDate | date }}</p>
+        <p class="text-sm mb-1">End Date: {{ campaign.endDate | date }}</p>
+        <p class="text-sm mb-1">Target Segment: {{ campaign.targetSegment }}</p>
+        <p class="text-sm mb-1">Budget: {{ campaign.budget }}</p>
+
+        <div class="mt-2">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                (click)="navigateToLeadForm(campaign.id)">
+                Interested
+            </button>
+        </div>
+    </div>
+</div>

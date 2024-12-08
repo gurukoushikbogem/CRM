@@ -1,0 +1,160 @@
+<div class="flex h-screen">
+
+    <div class="fixed top-0 left-0 h-full w-64 bg-gray-800 text-white overflow-y-auto transition-transform transform z-40"
+        [ngClass]="{
+      '-translate-x-full': !isSidebarOpen,
+      'translate-x-0': isSidebarOpen,
+      'lg:-translate-x-full': !isSidebarOpen
+    }">
+        <nav class="px-4 py-6">
+            <ul class="space-y-4 mt-16">
+                <li *ngIf="checkRole('Admin') || checkRole('Marketing manager') || checkRole('Account manager')">
+                    <a routerLink="campaign/add" routerLinkActive="bg-gray-700"
+                        class="block px-4 py-2 rounded hover:bg-gray-700 transition">
+                        Add Campaign
+                    </a>
+                </li>
+                <li *ngIf="
+            checkRole('Admin') ||
+            checkRole('Marketing manager') ||
+            checkRole('User') ||
+            checkRole('SalesPerson') ||
+            checkRole('Account Manager')
+          ">
+                    <a routerLink="campaign/list" routerLinkActive="bg-gray-700"
+                        class="block px-4 py-2 rounded hover:bg-gray-700 transition">
+                        Campaigns
+                    </a>
+                </li>
+                <li *ngIf="checkRole('salesperson') || checkRole('Admin') || checkRole('Marketing manager')">
+                    <button
+                        class="w-full flex items-center justify-between px-4 py-2 rounded hover:bg-gray-700 transition"
+                        (click)="toggleSubmenu('leads')">
+                        Leads
+                    </button>
+                    <ul *ngIf="submenu['leads']" class="mt-2 ml-4 space-y-2 border-l border-gray-700 pl-4">
+                        <li *ngIf="checkRole('salesperson') || checkRole('Admin') || checkRole('Marketing manager')">
+                            <a routerLink="leads/view" routerLinkActive="text-gray-300"
+                                class="block py-1 hover:text-gray-300">
+                                View Leads
+                            </a>
+                        </li>
+                        <li *ngIf="checkRole('Admin') || checkRole('Marketing manager')">
+                            <a routerLink="leads/add" routerLinkActive="text-gray-300"
+                                class="block py-1 hover:text-gray-300">
+                                Add Lead
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li *ngIf="checkRole('salesperson') || checkRole('Admin') || checkRole('Marketing manager')">
+                    <a routerLink="sales-pipeline" routerLinkActive="bg-gray-700"
+                        class="block px-4 py-2 rounded hover:bg-gray-700 transition">
+                        Sales-Pipeline
+                    </a>
+                </li>
+                <li *ngIf="checkRole('salesperson') || checkRole('Admin') || checkRole('Marketing manager')">
+                    <a routerLink="oppurtunities" routerLinkActive="bg-gray-700"
+                        class="block px-4 py-2 rounded hover:bg-gray-700 transition">
+                        Opportunity
+                    </a>
+                </li>
+                <li *ngIf="checkRole('Account Manager') || checkRole('Admin') || checkRole('Marketing manager')">
+                    <a routerLink="customer" routerLinkActive="bg-gray-700"
+                        class="block px-4 py-2 rounded hover:bg-gray-700 transition">
+                        Customers
+                    </a>
+                </li>
+                <li *ngIf="
+            checkRole('Admin') ||
+            checkRole('salesperson') ||
+            checkRole('Account Manager') ||
+            checkRole('User')
+          ">
+                    <a routerLink="support" routerLinkActive="bg-gray-700"
+                        class="block px-4 py-2 rounded hover:bg-gray-700 transition">
+                        Support
+                    </a>
+                </li>
+                <li *ngIf="
+            checkRole('Admin') ||
+            checkRole('salesperson') ||
+            checkRole('Account Manager') ||
+            checkRole('Customer Support')
+          ">
+                    <a routerLink="resolve-support" routerLinkActive="bg-gray-700"
+                        class="block px-4 py-2 rounded hover:bg-gray-700 transition">
+                        Resolve Tickets
+                    </a>
+                </li>
+                <li
+                    *ngIf="checkRole('Admin') || checkRole('Account Manager') || checkRole('Marketing Account Manager')">
+                    <a routerLink="reports/add" routerLinkActive="bg-gray-700"
+                        class="block px-4 py-2 rounded hover:bg-gray-700 transition">
+                        Reports
+                    </a>
+                </li>
+                <li *ngIf="
+            checkRole('Admin') ||
+            checkRole('Account Manager') ||
+            checkRole('User') ||
+            checkRole('Sales Representative')
+          ">
+                    <a routerLink="interaction" routerLinkActive="bg-gray-700"
+                        class="block px-4 py-2 rounded hover:bg-gray-700 transition">
+                        Interaction
+                    </a>
+                </li>
+                <li
+                    *ngIf="checkRole('Admin') || checkRole('Account Manager') || checkRole('Marketing Account Manager') || checkRole('Sales Representative')">
+                    <a routerLink="tasks" routerLinkActive="bg-gray-700"
+                        class="block px-4 py-2 rounded hover:bg-gray-700 transition">
+                        Tasks
+                    </a>
+                </li>
+                <li
+                    *ngIf="checkRole('Admin') || checkRole('Account Manager') || checkRole('Marketing Account Manager')">
+                    <a routerLink="assign/tasks" routerLinkActive="bg-gray-700"
+                        class="block px-4 py-2 rounded hover:bg-gray-700 transition">
+                        Assign Tasks
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="flex-1 flex flex-col">
+        <div class="bg-gray-800 text-white fixed w-full z-50 flex items-center justify-between h-16 px-6 shadow-md">
+            <button class="text-white focus:outline-none" (click)="toggleSidebar()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+
+            <h1 class="text-lg font-bold mx-auto">Customer Relationship Management</h1>
+
+            <div class="relative">
+                <button class="flex items-center focus:outline-none" (click)="toggleProfileDropdown()">
+                    <i class="fas fa-user-circle text-white text-4xl"></i>
+                </button>
+                <div *ngIf="isProfileDropdownOpen"
+                    class="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-lg shadow-lg z-50">
+                    <ul class="py-2">
+                        <li class="px-4 py-2 border-b border-gray-200">
+                            Hi, {{ personName }}
+                        </li>
+                        <li>
+                            <button (click)="logout()"
+                                class="w-full text-left px-4 py-2 hover:bg-gray-100">Logout</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-1 mt-16 p-6 bg-gray-100">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

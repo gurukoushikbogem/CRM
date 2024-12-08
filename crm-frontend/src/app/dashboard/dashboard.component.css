@@ -1,0 +1,24 @@
+/* Hide the scrollbar for the sidebar */
+.w-64 {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.w-64::-webkit-scrollbar {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+    .sidebar {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        left: 0;
+        height: 100%;
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar-hidden {
+        transform: translateX(-100%);
+    }
+}
