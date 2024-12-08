@@ -37,11 +37,17 @@ builder.Services.AddAuthentication(i =>
 });
 
 // Authorization
-builder.Services.AddAuthorization(i =>
+builder.Services.AddAuthorization(options =>
 {
-    i.AddPolicy("AdminOnly", j => j.RequireRole("Admin"));
-    i.AddPolicy("All", j => j.RequireRole("User", "Admin"));
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("SalesRepresentativeOnly", policy => policy.RequireRole("SalesRepresentative"));
+    options.AddPolicy("AccountManagerOnly", policy => policy.RequireRole("AccountManager"));
+    options.AddPolicy("CustomerSupportOnly", policy => policy.RequireRole("CustomerSupport"));
+    options.AddPolicy("MarketingManagerOnly", policy => policy.RequireRole("MarketingManager"));
+
+    options.AddPolicy("All", policy => policy.RequireRole("Admin", "SalesRepresentative", "AccountManager", "CustomerSupport", "MarketingManager"));
 });
+
 
 builder.Services.AddCors(options =>
 {
